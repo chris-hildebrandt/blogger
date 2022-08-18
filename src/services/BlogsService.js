@@ -10,6 +10,6 @@ class BlogsService{
       }
     })
     AppState.profileBlogs = res.data.map()
-
+    
   }
 }
