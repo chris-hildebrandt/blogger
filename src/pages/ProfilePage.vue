@@ -38,8 +38,18 @@ export default {
       }
     }
 
+    async function getBlogsByCreatorId(){
+      try {
+      await blogsService.getBlogsByCreatorId(route.params.profileId)
+      } catch (error) {
+      logger.error('[getting blogs by creator Id]', error);
+      Pop.error(error);
+      }
+    }
+
     onMounted(() => {
       getProfileById()
+      getBlogsByCreatorId()
     })
 
 

@@ -1,5 +1,6 @@
 <template>
-
+<!--        VVV  this will break if the prop doesn't exist, that is why we set a default for the property in the model. -->
+<div v-if="project.creator"></div>
 </template>
 
 <script>
