@@ -1,17 +1,19 @@
+
+<!-- TODO    style this up -->
 <template>
   <!--                         VVV  this allows the page to wait for the active-->
   <div class="profile-page" v-if="profile">
-    <div>
+    <div class="cover-image">
       <img :src="profile.img" alt="">
-    </div>
 <!--               VVV finish this -->
-    <div v-if="profile.id == account.id">
-      <router-link></router-link>
+      <div v-if="profile.id == account.id">
+      <router-link class="btn btn-warning" :to="{ name: 'Account'}">Edit Account Info</router-link>
     </div>
+  </div>
 
   </div>
   <div v-else>
-    some sort of loading message
+    some sort of loading message<i class="mdi mdi-spin mdi-hammer"></i><i class="mdi mdi-spin mdi-wrench"></i>
   </div>
 </template>
 
@@ -30,11 +32,12 @@ export default {
 
     async function getProfileById() {
       try {
-        await profileService.getProfileById()
+        await profileService.getProfileById(route.params.profileId)
       } catch (error) {
-        logger.error('[]', error);
+        logger.error('[getting profile by id]', error);
         Pop.error(error);
         router.push({ name: 'Home' })
+        // ^^^ sends user home if profile id is bad
       }
     }
 
@@ -56,12 +59,15 @@ export default {
     return {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.activeProfile),
-      cover: computed(() => `${AppState.activeProfile?.coverImg}`),
+      cover: computed(() => `url(${AppState.activeProfile?.coverImg || 'https://i.pinimg.com/originals/c8/c3/1b/c8c31b7538ae5eb8416051aa6e7c11f5.jpg'})`),
+      blogs: computed(()=> AppState.profileBlogs)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-. v-bind(cover)
+.cover-img{
+  background-image: v-bind(cover);
+}
 </style>

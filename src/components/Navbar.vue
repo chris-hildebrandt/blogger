@@ -18,13 +18,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
-        <li>
-          <router-link
-            :to="{ name: 'About' }"
-            class="btn text-success lighten-30 selectable text-uppercase"
-          >
-            About
-          </router-link>
+        <li v-if="profile">
+<button class="btn btn-success">Create Post</button>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
@@ -34,9 +29,14 @@
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState.js";
+
 export default {
   setup() {
-    return {};
+    return {
+      profile: computed(() => AppState.activeProfile),
+    };
   },
 };
 </script>
