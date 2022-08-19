@@ -7,8 +7,7 @@ export class Blog{
     this.body = data.body || ''
     this.title = data.title || ''
     this.creator = data.creator || {}
-
-
+    this.createdAt = data.createdAt || ''
   }
 }
 

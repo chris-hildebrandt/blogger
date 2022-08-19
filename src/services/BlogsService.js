@@ -1,7 +1,6 @@
 import { Blog } from "../models/Blog.js";
-
-const { AppState } = require("../AppState.js");
-const { server } = require("./AxiosService.js");
+import { AppState } from "../AppState.js";
+import { server } from "./AxiosService.js";
 
 class BlogsService{
 

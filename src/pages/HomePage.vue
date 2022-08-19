@@ -1,7 +1,7 @@
 <template>
   <div class="home container">
     <div class="row">
-      <div class="col-md-4" v-for="b in blogs" :key="b.id">
+      <div class="col-md-5 m-3" v-for="b in blogs" :key="b.id">
         <BlogCard :blog="b" />
       </div>
     </div>
@@ -9,7 +9,11 @@
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { onMounted } from "vue";
+import { AppState } from "../AppState.js";
 import BlogCard from "../components/BlogCard.vue";
+import { blogsService } from "../services/BlogsService.js"
 
 export default {
   components: { BlogCard },
@@ -17,11 +21,18 @@ export default {
 
     async function getBlogs(){
       try {
-      await blogsService.getBlogs
+      await blogsService.getBlogs()
       } catch (error) {
       logger.error('[]', error);
       Pop.error(error);
       }
+    }
+
+    onMounted(()=> {
+      getBlogs()
+    })
+    return {
+      blogs: computed(()=> AppState.blogs)
     }
   }
 }
@@ -29,10 +40,7 @@ export default {
 
 <style scoped lang="scss">
 .home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
+  overflow-y: auto;
   user-select: none;
 
   .home-card {
